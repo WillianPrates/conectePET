@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "673148242116",
+    "project_id": "conectepet-c08f4",
+    "storage_bucket": "conectepet-c08f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673148242116:android:f4df555058ba09d9dd2191",
+        "android_client_info": {
+          "package_name": "com.example.conectepet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "673148242116-p5dkm2flns74vh35qd0trff945lmou2b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAheU9909H7hoQpvcWsZIiGUcaZBJ9Reh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "673148242116-p5dkm2flns74vh35qd0trff945lmou2b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

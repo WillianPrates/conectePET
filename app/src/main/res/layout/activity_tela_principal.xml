@@ -6,4 +6,68 @@
     android:layout_height="match_parent"
     tools:context=".Views.TelaPrincipal">
 
+    <ImageView
+        android:id="@+id/logo_tela_principal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.627"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_conecte_app" />
+
+    <Button
+        android:id="@+id/buttonUser"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="-20dp"
+        android:background="#00FFFFFF"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="x"
+        app:cornerRadius="0dp"
+        app:icon="@drawable/ic_user_24"
+        app:iconPadding="0dp"
+        app:iconTint="#000000"
+        app:layout_constraintTop_toBottomOf="@id/textNaoPossuiPetCadastrado"
+        app:layout_constraintBottom_toBottomOf="@+id/logo_tela_principal"
+        app:layout_constraintEnd_toEndOf="@+id/logo_tela_principal"
+        app:layout_constraintTop_toTopOf="@+id/logo_tela_principal" />
+
+    <TextView
+        android:id="@+id/textOla"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Olá, Fulano de Tal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_tela_principal" />
+
+    <TextView
+        android:id="@+id/textNaoPossuiPetCadastrado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Você ainda não possui \nnenhum pet cadastrado."
+        app:layout_constraintBottom_toTopOf="@+id/buttonCadastrarPet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textOla" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonCadastrarPet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Button"
+        android:layout_marginBottom="120dp"
+        android:text="Cadastrar Pet"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

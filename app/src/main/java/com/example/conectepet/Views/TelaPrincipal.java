@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import com.example.conectepet.CadastroPet;
 import com.example.conectepet.R;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -37,12 +36,14 @@ public class TelaPrincipal extends AppCompatActivity {
                         switch (item.getItemId()){
                             case R.id.item_editar_conta:
                                 Toast.makeText(getApplicationContext(),"Opção de edição de conta", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(TelaPrincipal.this, TelaEditarCadastro.class);
+                                startActivity(intent);
                                 return true;
 
                             case R.id.item_sair:
                                 FirebaseAuth.getInstance().signOut();
-                                Intent intent = new Intent(TelaPrincipal.this, FormLogin.class);
-                                startActivity(intent);
+                                Intent intent2 = new Intent(TelaPrincipal.this, FormLogin.class);
+                                startActivity(intent2);
                                 return true;
 
                             default:

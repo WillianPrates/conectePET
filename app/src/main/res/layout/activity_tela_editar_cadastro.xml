@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Views.TelaEditarCadastro">
+
+    <ImageView
+        android:id="@+id/logo_tela_principal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.627"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_conecte_app" />
+
+    <Button
+        android:id="@+id/buttonUserTelaCadastro"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="-20dp"
+        android:background="#00FFFFFF"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="x"
+        app:cornerRadius="0dp"
+        app:icon="@drawable/ic_user_24"
+        app:iconPadding="0dp"
+        app:iconTint="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/logo_tela_principal"
+        app:layout_constraintEnd_toEndOf="@+id/logo_tela_principal"
+        app:layout_constraintTop_toTopOf="@+id/logo_tela_principal" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

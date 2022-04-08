@@ -61,7 +61,7 @@ public class TelaPrincipal extends AppCompatActivity {
         }
 
     private void iniciarComponentes() {
-        menuButton = findViewById(R.id.buttonUser);
+        menuButton = findViewById(R.id.buttonUserTelaPrincipal);
         cadastrarPetButton = findViewById(R.id.buttonCadastrarPet);
 
     }

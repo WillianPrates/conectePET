@@ -92,6 +92,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/text_esqueceu_senha"
                 android:layout_marginBottom="18dp"/>
 
+            <CheckBox
+                android:id="@+id/checkBoxSenha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="42dp"
+                android:text="Mostrar senha"
+                app:layout_constraintBottom_toTopOf="@+id/bt_entrar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_senha" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

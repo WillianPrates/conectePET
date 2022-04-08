@@ -7,8 +7,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -20,6 +24,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class FormLogin extends AppCompatActivity {
 
@@ -27,6 +32,8 @@ public class FormLogin extends AppCompatActivity {
     private EditText edit_email, edit_senha;
     private Button bt_entrar;
     private ProgressBar progressBar;
+    private FirebaseAuth mAuth;
+    private CheckBox mostrarSenha;
     String[] mensagens = {"Preencha todos os camppos", "Login efetuado com sucesso"};
 
     @Override
@@ -57,6 +64,17 @@ public class FormLogin extends AppCompatActivity {
                     AutenticarUsuario(view);
                 }
 
+            }
+        });
+
+        mostrarSenha.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isCheked) {
+                if (isCheked){
+                    edit_senha.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }else{
+                    edit_senha.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
             }
         });
     }
@@ -111,6 +129,8 @@ public class FormLogin extends AppCompatActivity {
         edit_senha = findViewById(R.id.edit_senha);
         bt_entrar = findViewById(R.id.bt_entrar);
         progressBar = findViewById(R.id.progressBar);
+        mostrarSenha = findViewById(R.id.checkBoxSenha);
 
     }
+
 }

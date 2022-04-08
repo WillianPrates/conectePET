@@ -31,10 +31,10 @@ import java.util.Map;
 
 public class FormCadastro extends AppCompatActivity {
 
-    private EditText cadastro_email, cadastro_nome, cadastro_senha;
+    private EditText cadastro_email, cadastro_nome, cadastro_senha, cadastro_confirmaSenha;
     private Button bt_cadastrar;
     private TextView text_possui_cadastro;
-    String[] mensagens = {"Preencha todos os camppos", "Cadastro realizado com sucesso"};
+    String[] mensagens = {"Preencha todos os camppos", "Cadastro realizado com sucesso","As senhas não são iguais"};
     String usuarioID;
 
     @Override
@@ -49,15 +49,23 @@ public class FormCadastro extends AppCompatActivity {
             public void onClick(View view) {
                 String nome = cadastro_nome.getText().toString();
                 String senha = cadastro_senha.getText().toString();
+                String confirmaSenha = cadastro_confirmaSenha.getText().toString();
                 String email = cadastro_email.getText().toString();
 
-                if (nome.isEmpty() || email.isEmpty() || senha.isEmpty()){
-                    Snackbar snackbar = Snackbar.make(view, mensagens[0],Snackbar.LENGTH_SHORT);
+                if (nome.isEmpty() || email.isEmpty() || senha.isEmpty() || confirmaSenha.isEmpty()) {
+                        Snackbar snackbar = Snackbar.make(view, mensagens[0], Snackbar.LENGTH_SHORT);
+                        snackbar.setBackgroundTint(Color.WHITE);
+                        snackbar.setTextColor(Color.BLACK);
+                        snackbar.show();
+
+                } else if(senha.equals(confirmaSenha)){
+                    CadastrarUsuario(view);
+                }else{
+                    Snackbar snackbar = Snackbar.make(view, mensagens[2], Snackbar.LENGTH_SHORT);
                     snackbar.setBackgroundTint(Color.WHITE);
                     snackbar.setTextColor(Color.BLACK);
                     snackbar.show();
-                }else{
-                    CadastrarUsuario(view);
+
                 }
             }
         });
@@ -69,35 +77,36 @@ public class FormCadastro extends AppCompatActivity {
 
     }
 
-    private void CadastrarUsuario(View view){
+    private void CadastrarUsuario(View view) {
         String email = cadastro_email.getText().toString();
         String senha = cadastro_senha.getText().toString();
+        String confirmSenha = cadastro_confirmaSenha.getText().toString();
 
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,senha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, senha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     SalvarDadosUsuario();
-
-                    Snackbar snackbar = Snackbar.make(view, mensagens[1],Snackbar.LENGTH_SHORT);
+                    Snackbar snackbar = Snackbar.make(view, mensagens[1], Snackbar.LENGTH_SHORT);
                     snackbar.setBackgroundTint(Color.WHITE);
                     snackbar.setTextColor(Color.BLACK);
                     snackbar.show();
-                }else{
+                } else {
                     String erro;
                     try {
                         throw task.getException();
-                    }catch (FirebaseAuthWeakPasswordException e) {
+                    } catch (FirebaseAuthWeakPasswordException e) {
                         erro = "A senha não atende os requisitos de 6 caracteres";
-                    }catch (FirebaseAuthUserCollisionException e){
+                    } catch (FirebaseAuthUserCollisionException e) {
                         erro = "Este email já está em uso. ";
-                    }catch (FirebaseAuthInvalidCredentialsException e){
+                    } catch (FirebaseAuthInvalidCredentialsException e) {
                         erro = "Email não atende os requisitos de email";
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         erro = "Erro desconhecido ao cadastrar o usuário";
                     }
 
-                    Snackbar snackbar = Snackbar.make(view, erro,Snackbar.LENGTH_SHORT);
+                    Snackbar snackbar = Snackbar.make(view, erro, Snackbar.LENGTH_SHORT);
                     snackbar.setBackgroundTint(Color.WHITE);
                     snackbar.setTextColor(Color.BLACK);
                     snackbar.show();
@@ -107,13 +116,13 @@ public class FormCadastro extends AppCompatActivity {
         });
     }
 
-    private void SalvarDadosUsuario(){
+    private void SalvarDadosUsuario() {
         String nome = cadastro_nome.getText().toString();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        Map<String,Object> usuarios = new HashMap<>();
-        usuarios.put("nome",nome);
+        Map<String, Object> usuarios = new HashMap<>();
+        usuarios.put("nome", nome);
 
         usuarioID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -121,24 +130,25 @@ public class FormCadastro extends AppCompatActivity {
         documentReference.set(usuarios).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Log.d("db"," Sucesso ao salvar os dados");
+                Log.d("db", " Sucesso ao salvar os dados");
 
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d("db_error"," Erro ao salvar os dados" + e.toString());
+                        Log.d("db_error", " Erro ao salvar os dados" + e.toString());
 
                     }
                 });
 
     }
 
-    private void IniciarComponentes(){
+    private void IniciarComponentes() {
         cadastro_nome = findViewById(R.id.cadastro_nome);
         cadastro_email = findViewById(R.id.cadastro_email);
         cadastro_senha = findViewById(R.id.cadastro_senha);
+        cadastro_confirmaSenha = findViewById(R.id.edit_confirm_senha);
         bt_cadastrar = findViewById(R.id.bt_cadastrar);
         text_possui_cadastro = findViewById(R.id.text_possui_cadastro);
 

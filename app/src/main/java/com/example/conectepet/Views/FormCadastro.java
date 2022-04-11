@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.conectepet.Model.UserModel;
 import com.example.conectepet.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -47,6 +48,8 @@ public class FormCadastro extends AppCompatActivity {
         bt_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                UserModel userModel = new UserModel();
+
                 String nome = cadastro_nome.getText().toString();
                 String senha = cadastro_senha.getText().toString();
                 String confirmaSenha = cadastro_confirmaSenha.getText().toString();

@@ -49,7 +49,7 @@ public class FormCadastro extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 UserModel userModel = new UserModel();
-
+                
                 String nome = cadastro_nome.getText().toString();
                 String senha = cadastro_senha.getText().toString();
                 String confirmaSenha = cadastro_confirmaSenha.getText().toString();

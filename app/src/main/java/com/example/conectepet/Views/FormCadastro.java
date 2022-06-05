@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.conectepet.Model.PetModel;
 import com.example.conectepet.Model.UserModel;
 import com.example.conectepet.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,12 +39,15 @@ public class FormCadastro extends AppCompatActivity {
     String[] mensagens = {"Preencha todos os camppos", "Cadastro realizado com sucesso","As senhas não são iguais"};
     String usuarioID;
 
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_cadastro);
         getSupportActionBar().hide();
         IniciarComponentes();
+
 
         bt_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +131,11 @@ public class FormCadastro extends AppCompatActivity {
         Map<String, Object> usuarios = new HashMap<>();
         usuarios.put("nome", nome);
 
-        usuarioID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        UserModel userModel = new UserModel();
+        userModel.setId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        userModel.setEmail(cadastro_email.getText().toString());
+        userModel.setNome(cadastro_nome.getText().toString());
+        userModel.salvarDados();
 
         DocumentReference documentReference = db.collection("Usuarios").document(usuarioID);
         documentReference.set(usuarios).addOnSuccessListener(new OnSuccessListener<Void>() {

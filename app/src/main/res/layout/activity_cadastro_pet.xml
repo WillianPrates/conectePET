@@ -82,26 +82,31 @@
         app:layout_constraintVertical_bias="0.522">
 
         <EditText
+            android:id="@+id/cadastroNomePet"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:hint="Nome do pet" />
 
         <EditText
+            android:id="@+id/cadastroNascPet"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:hint="Data de nascimento" />
 
         <EditText
+            android:id="@+id/cadastroEspeciePet"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:hint="Espécie" />
 
         <EditText
+            android:id="@+id/CadastroTipoSangPet"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:hint="Tipo Sanguíneo" />
 
         <EditText
+            android:id="@+id/cadastroCastrado"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:hint="É castrado?" />

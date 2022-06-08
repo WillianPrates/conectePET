@@ -30,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class FormCadastro extends AppCompatActivity {
 
@@ -48,12 +49,14 @@ public class FormCadastro extends AppCompatActivity {
         getSupportActionBar().hide();
         IniciarComponentes();
 
-
         bt_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 UserModel userModel = new UserModel();
-                
+
+                userModel.setEmail(cadastro_email.getText().toString());
+                userModel.setNome(cadastro_nome.getText().toString());
+
                 String nome = cadastro_nome.getText().toString();
                 String senha = cadastro_senha.getText().toString();
                 String confirmaSenha = cadastro_confirmaSenha.getText().toString();
@@ -67,6 +70,7 @@ public class FormCadastro extends AppCompatActivity {
 
                 } else if(senha.equals(confirmaSenha)){
                     CadastrarUsuario(view);
+
                 }else{
                     Snackbar snackbar = Snackbar.make(view, mensagens[2], Snackbar.LENGTH_SHORT);
                     snackbar.setBackgroundTint(Color.WHITE);
@@ -94,11 +98,14 @@ public class FormCadastro extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+
                     SalvarDadosUsuario();
+
                     Snackbar snackbar = Snackbar.make(view, mensagens[1], Snackbar.LENGTH_SHORT);
                     snackbar.setBackgroundTint(Color.WHITE);
                     snackbar.setTextColor(Color.BLACK);
                     snackbar.show();
+
                 } else {
                     String erro;
                     try {
@@ -132,24 +139,26 @@ public class FormCadastro extends AppCompatActivity {
         usuarios.put("nome", nome);
 
         UserModel userModel = new UserModel();
-        userModel.setId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
         userModel.setEmail(cadastro_email.getText().toString());
         userModel.setNome(cadastro_nome.getText().toString());
+
         userModel.salvarDados();
 
         DocumentReference documentReference = db.collection("Usuarios").document(usuarioID);
         documentReference.set(usuarios).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Log.d("db", " Sucesso ao salvar os dados");
 
+                Log.d("db", " Sucesso ao salvar os dados");
+                Intent intent = new Intent(FormCadastro.this, TelaPrincipal.class);
+                startActivity(intent);
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.d("db_error", " Erro ao salvar os dados" + e.toString());
-
                     }
                 });
 
@@ -162,7 +171,6 @@ public class FormCadastro extends AppCompatActivity {
         cadastro_confirmaSenha = findViewById(R.id.edit_confirm_senha);
         bt_cadastrar = findViewById(R.id.bt_cadastrar);
         text_possui_cadastro = findViewById(R.id.text_possui_cadastro);
-
     }
 
 }

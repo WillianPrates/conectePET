@@ -1,5 +1,6 @@
 package com.example.conectepet.Model;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -12,11 +13,10 @@ public class UserModel {
     public UserModel() {
     }
 
-    public UserModel(String id, String nome, String email, String telefone) {
+    public UserModel(String id, String nome, String email) {
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.telefone = telefone;
     }
 
     public String getId() {
@@ -43,16 +43,8 @@ public class UserModel {
         this.email = email;
     }
 
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
     public void salvarDados(){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        reference.child("usuarios").child(getId()).setValue(this);
+        reference.child(getEmail()).setValue(this);
     }
 }

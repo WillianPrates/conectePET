@@ -1,5 +1,6 @@
 package com.example.conectepet.Model;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -62,7 +63,9 @@ public class PetModel {
     }
 
     public void salvar(){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("usuarios");
+        UserModel userModel = new UserModel();
+        String userID = userModel.getEmail().toString();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(userID);
         reference.child("pet").child(getPetID()).setValue(this);
     }
 }

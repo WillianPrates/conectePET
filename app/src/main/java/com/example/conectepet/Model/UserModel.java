@@ -19,6 +19,11 @@ public class UserModel {
         this.email = email;
     }
 
+    public UserModel(String nome, String email) {
+        this.nome = nome;
+        this.email = email;
+    }
+
     public String getId() {
         return id;
     }
@@ -44,6 +49,7 @@ public class UserModel {
     }
 
     public void salvarDados(){
+        System.out.println("Chegou aqui");
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         reference.child(getEmail()).setValue(this);
     }

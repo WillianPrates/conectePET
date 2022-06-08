@@ -25,6 +25,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -37,10 +39,8 @@ public class FormCadastro extends AppCompatActivity {
     private EditText cadastro_email, cadastro_nome, cadastro_senha, cadastro_confirmaSenha;
     private Button bt_cadastrar;
     private TextView text_possui_cadastro;
-    String[] mensagens = {"Preencha todos os camppos", "Cadastro realizado com sucesso","As senhas não são iguais"};
+    String[] mensagens = {"Preencha todos os campos", "Cadastro realizado com sucesso","As senhas não são iguais"};
     String usuarioID;
-
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +99,14 @@ public class FormCadastro extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
 
+                    UserModel userModel = new UserModel();
+
+                    userModel.setEmail(cadastro_email.getText().toString());
+                    userModel.setNome(cadastro_nome.getText().toString());
+                    //userModel.salvarDados();
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                    reference.child(userModel.getNome()).setValue(this);
+
                     SalvarDadosUsuario();
 
                     Snackbar snackbar = Snackbar.make(view, mensagens[1], Snackbar.LENGTH_SHORT);
@@ -138,19 +146,13 @@ public class FormCadastro extends AppCompatActivity {
         Map<String, Object> usuarios = new HashMap<>();
         usuarios.put("nome", nome);
 
-        UserModel userModel = new UserModel();
-
-        userModel.setEmail(cadastro_email.getText().toString());
-        userModel.setNome(cadastro_nome.getText().toString());
-
-        userModel.salvarDados();
-
         DocumentReference documentReference = db.collection("Usuarios").document(usuarioID);
         documentReference.set(usuarios).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
 
                 Log.d("db", " Sucesso ao salvar os dados");
+
                 Intent intent = new Intent(FormCadastro.this, TelaPrincipal.class);
                 startActivity(intent);
             }

@@ -64,7 +64,7 @@ public class PetModel {
 
     public void salvar(){
         UserModel userModel = new UserModel();
-        String userID = userModel.getEmail().toString();
+        String userID = FirebaseAuth.getInstance().getUid();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference(userID);
         reference.child("pet").child(getPetID()).setValue(this);
     }

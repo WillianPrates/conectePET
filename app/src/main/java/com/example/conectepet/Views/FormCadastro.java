@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +42,7 @@ public class FormCadastro extends AppCompatActivity {
     private TextView text_possui_cadastro;
     String[] mensagens = {"Preencha todos os campos", "Cadastro realizado com sucesso","As senhas não são iguais"};
     String usuarioID;
+    String email, senha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +91,8 @@ public class FormCadastro extends AppCompatActivity {
     }
 
     private void CadastrarUsuario(View view) {
-        String email = cadastro_email.getText().toString();
-        String senha = cadastro_senha.getText().toString();
+        email = cadastro_email.getText().toString();
+        senha = cadastro_senha.getText().toString();
         String confirmSenha = cadastro_confirmaSenha.getText().toString();
 
 
@@ -99,20 +101,30 @@ public class FormCadastro extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
 
+                    //DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                    //reference.child(userModel.getNome()).setValue(this);
+
                     UserModel userModel = new UserModel();
 
+                    userModel.setId(FirebaseAuth.getInstance().getUid());
                     userModel.setEmail(cadastro_email.getText().toString());
                     userModel.setNome(cadastro_nome.getText().toString());
-                    //userModel.salvarDados();
-                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-                    reference.child(userModel.getNome()).setValue(this);
 
-                    SalvarDadosUsuario();
+
+                    //SalvarDadosUsuario();
+
 
                     Snackbar snackbar = Snackbar.make(view, mensagens[1], Snackbar.LENGTH_SHORT);
                     snackbar.setBackgroundTint(Color.WHITE);
                     snackbar.setTextColor(Color.BLACK);
                     snackbar.show();
+
+                    userModel.salvarDados();
+
+                    Intent intent = new Intent(FormCadastro.this, FormLogin.class);
+                    startActivity(intent);
+
+
 
                 } else {
                     String erro;
@@ -138,7 +150,7 @@ public class FormCadastro extends AppCompatActivity {
         });
     }
 
-    private void SalvarDadosUsuario() {
+    /*private void SalvarDadosUsuario() {
         String nome = cadastro_nome.getText().toString();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -146,12 +158,14 @@ public class FormCadastro extends AppCompatActivity {
         Map<String, Object> usuarios = new HashMap<>();
         usuarios.put("nome", nome);
 
-        DocumentReference documentReference = db.collection("Usuarios").document(usuarioID);
+        DocumentReference documentReference = db.collection("usuarios").document(usuarioID);
         documentReference.set(usuarios).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
 
                 Log.d("db", " Sucesso ao salvar os dados");
+
+
 
                 Intent intent = new Intent(FormCadastro.this, TelaPrincipal.class);
                 startActivity(intent);
@@ -164,7 +178,7 @@ public class FormCadastro extends AppCompatActivity {
                     }
                 });
 
-    }
+    }*/
 
     private void IniciarComponentes() {
         cadastro_nome = findViewById(R.id.cadastro_nome);

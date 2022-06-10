@@ -32,6 +32,10 @@ public class FormLogin extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private CheckBox mostrarSenha;
+
+    String email, senha;
+
+
     String[] mensagens = {"Preencha todos os camppos", "Login efetuado com sucesso"};
 
     @Override
@@ -49,8 +53,8 @@ public class FormLogin extends AppCompatActivity {
         bt_entrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = edit_email.getText().toString();
-                String senha = edit_senha.getText().toString();
+                email = edit_email.getText().toString();
+                senha = edit_senha.getText().toString();
 
                 if (email.isEmpty() || senha.isEmpty()){
 
@@ -78,8 +82,8 @@ public class FormLogin extends AppCompatActivity {
     }
 
     private void AutenticarUsuario(View view){
-        String email = edit_email.getText().toString();
-        String senha = edit_senha.getText().toString();
+        email = edit_email.getText().toString();
+        senha = edit_senha.getText().toString();
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email,senha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

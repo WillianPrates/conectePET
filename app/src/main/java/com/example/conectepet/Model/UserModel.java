@@ -1,5 +1,6 @@
 package com.example.conectepet.Model;
 
+import com.example.conectepet.Views.FormCadastro;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -51,6 +52,6 @@ public class UserModel {
     public void salvarDados(){
         System.out.println("Chegou aqui");
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        reference.child(getEmail()).setValue(this);
+        reference.child(getId()).setValue(this);
     }
 }

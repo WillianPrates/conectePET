@@ -49,6 +49,11 @@ public class UserModel {
         this.email = email;
     }
 
+    @Override
+    public String toString(){
+        return nome;
+    }
+
     public void salvarDados(){
         System.out.println("Chegou aqui");
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();

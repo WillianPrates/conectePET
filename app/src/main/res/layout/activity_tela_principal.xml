@@ -31,7 +31,6 @@
         app:icon="@drawable/ic_user_24"
         app:iconPadding="0dp"
         app:iconTint="#000000"
-        app:layout_constraintTop_toBottomOf="@id/textNaoPossuiPetCadastrado"
         app:layout_constraintBottom_toBottomOf="@+id/logo_tela_principal"
         app:layout_constraintEnd_toEndOf="@+id/logo_tela_principal"
         app:layout_constraintTop_toTopOf="@+id/logo_tela_principal" />
@@ -40,29 +39,50 @@
         android:id="@+id/textOla"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="Olá, Fulano de Tal"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo_tela_principal" />
 
-    <TextView
-        android:id="@+id/textNaoPossuiPetCadastrado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Você ainda não possui \nnenhum pet cadastrado."
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        app:layout_constraintTop_toBottomOf="@+id/textOla"
         app:layout_constraintBottom_toTopOf="@+id/buttonCadastrarPet"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textOla" />
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/textNaoPossuiPetCadastrado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"
+            android:text="Você ainda não possui \nnenhum pet cadastrado."
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/petList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonCadastrarPet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/Button"
-        android:layout_marginBottom="120dp"
+        android:layout_marginBottom="60dp"
         android:text="Cadastrar Pet"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
